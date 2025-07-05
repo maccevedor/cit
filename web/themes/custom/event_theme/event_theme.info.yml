@@ -1,0 +1,8 @@
+name: Event Theme
+description: 'A custom theme for the Event Management Platform.'
+package: Custom
+type: theme
+core_version_requirement: ^9 || ^10
+base theme: claro
+libraries:
+  - event_theme/global-styling

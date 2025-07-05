@@ -1,0 +1,115 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" are available.
+ *   For example: {{ node.getTitle() }}, {{ node.hasField('field_event_date') }}.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the user's
+ *   picture theme hook.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the node element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other nodes in teaser
+ *     listings.
+ *   - node--unpublished: Appears on unpublished nodes.
+ *
+ * @see template_preprocess_node()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label and not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if display_submitted %}
+    <footer class="node__meta">
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('node__submitted') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {# Event specific layout #}
+    <div class="event-header">
+      {% if content.field_event_date %}
+        <div class="event-date">
+          {{ content.field_event_date }}
+        </div>
+      {% endif %}
+
+      {% if content.field_location %}
+        <div class="event-location">
+          {{ content.field_location }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if content.body %}
+      <div class="event-description">
+        {{ content.body }}
+      </div>
+    {% endif %}
+
+    {# Event status indicator #}
+    <div class="event-status">
+      {% if node.isPublished() %}
+        <span class="status-published">✓ Published</span>
+      {% else %}
+        <span class="status-unpublished">⏳ Draft</span>
+      {% endif %}
+    </div>
+
+    {# Event actions #}
+    {% if node.access('update') %}
+      <div class="event-actions">
+        <a href="{{ path('entity.node.edit_form', {'node': node.id()}) }}" class="btn btn-primary">
+          Edit Event
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  {# Hide other fields that might be present #}
+  {{ content|without('field_event_date', 'field_location', 'body') }}
+</article>

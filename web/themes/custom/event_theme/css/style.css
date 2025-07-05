@@ -1,0 +1,142 @@
+/**
+ * @file
+ * Custom styles for Event Theme.
+ */
+
+:root {
+  --primary-color: #2c5aa0;
+  --secondary-color: #f8f9fa;
+  --accent-color: #28a745;
+  --text-color: #333;
+  --border-color: #dee2e6;
+  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Event specific styles */
+.node--type-event {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-left: 4px solid var(--primary-color);
+}
+
+.node--type-event .field--name-title {
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.node--type-event .field--name-field-event-date {
+  background: var(--secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.node--type-event .field--name-field-location {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin: 1rem 0;
+}
+
+.node--type-event .field--name-field-location::before {
+  content: "📍 ";
+  margin-right: 0.5rem;
+}
+
+.node--type-event .field--name-body {
+  line-height: 1.6;
+  color: var(--text-color);
+  margin: 1.5rem 0;
+}
+
+/* Event list styling */
+.view-events .views-row {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  transition: transform 0.2s ease;
+}
+
+.view-events .views-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Form styling */
+.node-event-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.node-event-form .form-item {
+  margin-bottom: 1.5rem;
+}
+
+.node-event-form label {
+  font-weight: 600;
+  color: var(--text-color);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.node-event-form input[type="text"],
+.node-event-form input[type="email"],
+.node-event-form input[type="date"],
+.node-event-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.node-event-form input[type="submit"] {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.node-event-form input[type="submit"]:hover {
+  background: #1e4a8a;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .node--type-event {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .node--type-event .field--name-title {
+    font-size: 1.5rem;
+  }
+
+  .view-events .views-row {
+    padding: 1rem;
+  }
+}
+
+/* Status indicators */
+.node--type-event.published {
+  border-left-color: var(--accent-color);
+}
+
+.node--type-event.unpublished {
+  border-left-color: #dc3545;
+  opacity: 0.7;
+}

@@ -1,0 +1,22 @@
+uuid: 22222222-2222-2222-2222-222222222222
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.event
+id: node.event.field_location
+field_name: field_location
+entity_type: node
+bundle: event
+label: 'Location'
+description: 'The location where the event will take place.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+field_type: string

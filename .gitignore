@@ -1,0 +1,114 @@
+# Drupal specific
+web/sites/*/files/
+web/sites/*/private/
+web/sites/*/translations/
+web/sites/*/settings.local.php
+web/sites/*/settings.php
+web/sites/*/services.yml
+
+# Composer
+vendor/
+composer.lock
+composer.phar
+
+# Drupal core (if using Composer)
+web/core/
+web/libraries/
+web/modules/contrib/
+web/themes/contrib/
+web/profiles/contrib/
+
+# Configuration files that might contain sensitive data
+web/sites/*/settings.local.php
+web/sites/*/services.local.yml
+
+# Logs
+*.log
+web/sites/*/logs/
+web/sites/*/tmp/
+
+# Cache
+web/sites/*/cache/
+web/sites/*/tmp/
+
+# Database dumps
+*.sql
+*.sql.gz
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Sentry
+.sentry-native/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Node.js (if using any frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+phpunit.xml
+tests/coverage/
+.phpunit.result.cache
+
+# Backup files
+*.backup
+*.old
+*.orig
+
+# Archive files
+*.tar.gz
+*.zip
+*.rar
+
+# Security
+web/sites/*/settings.php
+web/sites/*/services.yml
+
+# Drush
+drush-backups/
+drush-dump/
+
+# Custom modules and themes (keep these)
+# web/modules/custom/
+# web/themes/custom/
+
+# Configuration sync (keep this for deployment)
+# config/sync/
+
+# Documentation (keep these)
+# README.md
+# INTERVIEW_PREP.md
+# QUICK_START.md
+# setup.sh

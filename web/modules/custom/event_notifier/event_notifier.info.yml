@@ -1,0 +1,8 @@
+name: Event Notifier
+description: 'Sends email notifications when events are published.'
+package: Custom
+type: module
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - drupal:user

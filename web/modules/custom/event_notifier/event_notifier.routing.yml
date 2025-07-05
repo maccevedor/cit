@@ -1,0 +1,7 @@
+event_notifier.settings:
+  path: '/admin/config/system/event-notifier'
+  defaults:
+    _form: '\Drupal\event_notifier\Form\EventNotifierSettingsForm'
+    _title: 'Event Notifier Settings'
+  requirements:
+    _permission: 'administer site configuration'

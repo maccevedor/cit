@@ -1,0 +1,21 @@
+uuid: 33333333-3333-3333-3333-333333333333
+langcode: en
+status: true
+dependencies:
+  module:
+    - text
+id: node.field_location
+field_name: field_location
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: text
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

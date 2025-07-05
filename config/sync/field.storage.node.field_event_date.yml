@@ -1,0 +1,20 @@
+uuid: 11111111-1111-1111-1111-111111111111
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+id: node.field_event_date
+field_name: field_event_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: datetime
+  timezone_override: ''
+module: datetime
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
