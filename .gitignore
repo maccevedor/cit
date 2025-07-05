@@ -81,6 +81,8 @@ yarn-error.log*
 phpunit.xml
 tests/coverage/
 .phpunit.result.cache
+.phpunit.cache/
+pest.php
 
 # Backup files
 *.backup

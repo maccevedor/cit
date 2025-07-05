@@ -14,7 +14,11 @@
     "require-dev": {
         "drupal/core-dev": "^10.0",
         "phpunit/phpunit": "^9.5",
-        "symfony/phpunit-bridge": "^6.0"
+        "symfony/phpunit-bridge": "^6.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-parallel": "^2.0",
+        "pestphp/pest-plugin-coverage": "^2.0",
+        "mockery/mockery": "^1.5"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -25,7 +29,8 @@
         "allow-plugins": {
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
-            "drupal/core-project-message": true
+            "drupal/core-project-message": true,
+            "pestphp/pest-plugin": true
         },
         "sort-packages": true
     },
@@ -53,6 +58,11 @@
         ],
         "post-update-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ]
+        ],
+        "test": "pest",
+        "test:coverage": "pest --coverage",
+        "test:parallel": "pest --parallel",
+        "test:unit": "pest tests/Unit",
+        "test:feature": "pest tests/Feature"
     }
 }
