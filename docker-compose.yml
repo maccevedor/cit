@@ -12,7 +12,6 @@ services:
       - ./web:/var/www/html
       - ./config:/var/www/html/config
       - ./composer.json:/var/www/html/composer.json
-      - ./composer.lock:/var/www/html/composer.lock
     environment:
       - MYSQL_HOST=db
       - MYSQL_DATABASE=drupal

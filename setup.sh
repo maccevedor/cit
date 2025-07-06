@@ -35,11 +35,11 @@ echo "📦 Installing Drupal dependencies..."
 docker-compose exec drupal composer install --no-interaction
 
 # Check if Drupal is already installed
-if docker-compose exec drupal drush status --format=json | grep -q '"bootstrap": "Successful"'; then
+if docker-compose exec drupal vendor/bin/drush status --format=json | grep -q '"bootstrap": "Successful"'; then
     echo "✅ Drupal is already installed."
 else
     echo "🔧 Installing Drupal..."
-    docker-compose exec drupal drush site:install standard \
+    docker-compose exec drupal vendor/bin/drush site:install standard \
         --db-url=mysql://drupal:drupal@db/drupal \
         --account-name=admin \
         --account-pass=admin \
@@ -50,21 +50,21 @@ fi
 
 # Enable custom modules and themes
 echo "🔧 Enabling custom modules and themes..."
-docker-compose exec drupal drush en event_notifier -y
-docker-compose exec drupal drush theme:enable event_theme -y
-docker-compose exec drupal drush config:set system.theme default event_theme -y
+docker-compose exec drupal vendor/bin/drush en event_notifier -y
+docker-compose exec drupal vendor/bin/drush theme:enable event_theme -y
+docker-compose exec drupal vendor/bin/drush config:set system.theme default event_theme -y
 
 # Import configuration
 echo "📥 Importing configuration..."
-docker-compose exec drupal drush config:import -y
+docker-compose exec drupal vendor/bin/drush config:import -y
 
 # Clear cache
 echo "🧹 Clearing cache..."
-docker-compose exec drupal drush cr
+docker-compose exec drupal vendor/bin/drush cr
 
 # Create sample event
 echo "📝 Creating sample event..."
-docker-compose exec drupal drush node:create event \
+docker-compose exec drupal vendor/bin/drush node:create event \
     --title="Tech Conference 2024" \
     --field_event_date="2024-06-15T09:00:00" \
     --field_location="Bogotá, Colombia" \
@@ -84,7 +84,7 @@ echo "3. Create more events to test the system"
 echo "4. Explore the custom theme and module functionality"
 echo ""
 echo "🔧 Useful commands:"
-echo "- View logs: docker-compose exec drupal drush watchdog:show"
-echo "- Clear cache: docker-compose exec drupal drush cr"
-echo "- Export config: docker-compose exec drupal drush config:export"
+echo "- View logs: docker-compose exec drupal vendor/bin/drush watchdog:show"
+echo "- Clear cache: docker-compose exec drupal vendor/bin/drush cr"
+echo "- Export config: docker-compose exec drupal vendor/bin/drush config:export"
 echo "- Stop containers: docker-compose down"

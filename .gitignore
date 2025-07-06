@@ -114,3 +114,22 @@ drush-dump/
 # INTERVIEW_PREP.md
 # QUICK_START.md
 # setup.sh
+/.editorconfig
+/.gitattributes
+
+# Ignore duplicate or accidental web/web directory
+web/web/
+
+# Ignore modules and themes at project root (only use web/modules and web/themes)
+/modules/
+/themes/
+
+# Ignore generated files in web/ except custom code and config
+web/vendor/
+web/composer.lock
+web/core/
+web/sites/default/files/
+web/sites/default/settings.local.php
+web/sites/default/services.yml
+web/sites/default/settings.php
+web/sites/default/
