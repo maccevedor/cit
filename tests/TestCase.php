@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\TestCase as BaseTestCase;
+use Mockery;
 use Drupal\Tests\UnitTestCase;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -11,12 +13,11 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Language\Language;
-use Mockery;
 
 /**
  * Base test case for Event Notifier module tests.
  */
-class TestCase extends UnitTestCase
+class TestCase extends BaseTestCase
 {
     protected $container;
     protected $configFactory;

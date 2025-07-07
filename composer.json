@@ -66,5 +66,10 @@
         "test:parallel": "pest --parallel",
         "test:unit": "pest tests/Unit",
         "test:feature": "pest tests/Feature"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }

@@ -12,11 +12,14 @@ services:
       - ./web:/var/www/html
       - ./config:/var/www/html/config
       - ./composer.json:/var/www/html/composer.json
+      - ./tests:/var/www/html/tests
+      - ./phpunit.xml:/var/www/html/phpunit.xml
     environment:
       - MYSQL_HOST=db
       - MYSQL_DATABASE=drupal
       - MYSQL_USER=drupal
       - MYSQL_PASSWORD=drupal
+      - XDEBUG_MODE=coverage
     depends_on:
       - db
     networks:
