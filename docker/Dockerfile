@@ -45,6 +45,9 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
+# Copy custom php.ini with Xdebug config
+COPY php.ini /usr/local/etc/php/conf.d/xdebug.ini
+
 # Expose port 80
 EXPOSE 80
 

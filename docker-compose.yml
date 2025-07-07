@@ -19,7 +19,7 @@ services:
       - MYSQL_DATABASE=drupal
       - MYSQL_USER=drupal
       - MYSQL_PASSWORD=drupal
-      - XDEBUG_MODE=coverage
+      - XDEBUG_MODE=debug,coverage
     depends_on:
       - db
     networks:
