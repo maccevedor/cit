@@ -9,6 +9,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - ./web/sites/default/settings.php:/var/www/html/web/sites/default/settings.php
       - ./web:/var/www/html
       - ./config:/var/www/html/config
       - ./composer.json:/var/www/html/composer.json
@@ -41,21 +42,21 @@ services:
     networks:
       - drupal_network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: drupal_phpmyadmin
-    restart: always
-    ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: drupal
-      PMA_PASSWORD: drupal
-    depends_on:
-      - db
-    networks:
-      - drupal_network
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: drupal_phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #     PMA_HOST: db
+  #     PMA_PORT: 3306
+  #     PMA_USER: drupal
+  #     PMA_PASSWORD: drupal
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - drupal_network
 
 volumes:
   db_data:

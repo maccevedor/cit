@@ -176,6 +176,80 @@ docker-compose exec drupal drush config:import
    docker-compose exec drupal drush cr
    ```
 
+## Troubleshooting: Layout Builder Unexpected Error
+If you see "The website encountered an unexpected error" when using Layout Builder, ensure the following directory exists and is writable inside the container:
+
+```sh
+# On the host (creates the directory if missing)
+mkdir -p web/sites/default/files
+
+# On the host (for local/dev only)
+chmod -R 777 web/sites/default/files
+
+# Inside the container (if needed)
+docker-compose exec drupal mkdir -p /var/www/html/web/sites/default/files/$(date +%Y-%m)
+docker-compose exec drupal chmod -R 777 /var/www/html/web/sites/default/files
+```
+
+This fixes errors like:
+> DirectoryNotReadyException: The specified file ... could not be copied because the destination directory ... is not properly configured. This may be caused by a problem with file or directory permissions.
+
+---
+
+## VS Code Debugging Configuration
+
+Add the following to `.vscode/launch.json` for Xdebug support:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug (Docker)",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www/html/web": "${workspaceFolder}/web"
+      },
+      "xdebugSettings": {
+        "max_children": 256,
+        "max_data": 10240,
+        "max_depth": 5
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Docker Compose Debugging Notes
+
+- Ensure your `docker-compose.yml` exposes port 9003 for Xdebug:
+
+```yaml
+services:
+  drupal:
+    # ...
+    ports:
+      - "8080:80"
+      - "9003:9003"  # Xdebug
+    # ...
+```
+
+- Xdebug should be enabled in your `php.ini`:
+
+```ini
+[xdebug]
+extension=xdebug.so
+xdebug.mode=debug,develop
+xdebug.start_with_request=yes
+xdebug.client_host=host.docker.internal  # or your host IP if on Linux
+xdebug.client_port=9003
+xdebug.log=/tmp/xdebug.log
+```
+
 ## Next Steps for Interview Prep
 
 1. **Practice explaining the architecture** to non-technical stakeholders
