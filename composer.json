@@ -71,8 +71,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Drupal\\event_notifier\\": "web/modules/custom/event_notifier/src/"
+            "Tests\\": "tests/"
         }
     }
 }

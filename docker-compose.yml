@@ -11,6 +11,7 @@ services:
     volumes:
       - ./web/sites/default/settings.php:/var/www/html/web/sites/default/settings.php
       - ./web:/var/www/html
+      - ./web/sites/default/services.yml:/var/www/html/web/sites/default/services.yml:ro
       - ./config:/var/www/html/config
       - ./composer.json:/var/www/html/composer.json
       - ./tests:/var/www/html/tests

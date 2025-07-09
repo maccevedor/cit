@@ -274,3 +274,73 @@ xdebug.log=/tmp/xdebug.log
 ---
 
 **Good luck with your interview! This project demonstrates key Drupal Software Architect skills including custom development, theming, configuration management, and modern development practices.**
+
+# Testing and Code Coverage for Event Notifier (Drupal)
+
+## Test Framework
+
+This project uses [Pest](https://pestphp.com/) for unit testing and code coverage, running inside Docker.
+
+## Running Tests
+
+To run all tests with code coverage (from the project root):
+
+```
+docker-compose exec drupal vendor/bin/pest --coverage
+```
+
+To run a specific test file with coverage:
+
+```
+docker-compose exec drupal vendor/bin/pest --coverage --coverage-text=coverage.txt tests/Unit/EventNotifierSettingsFormTest.pest.php
+```
+
+## Achieving High Coverage
+
+- The `EventNotifierSettingsForm` class is covered by a dedicated test suite, achieving **97% code coverage**.
+- Some edge-case validation tests may be omitted if they require deep Drupal form API integration.
+- For best results, use real objects (like `FormState`) for form validation tests, or focus on logic that can be reliably unit tested.
+
+## Troubleshooting
+
+- If Pest does not discover tests automatically, specify the test file path directly as shown above.
+- If you encounter errors with service mocks (e.g., `email.validator`, `messenger`, `config.typed`), ensure you mock these in your test container setup.
+- For by-reference errors in form validation, use a variable for the form array and pass it by reference.
+- If you see errors about `setErrorByName` not being called, consider using a real `FormState` object and checking errors via `$form_state->getErrors()`.
+
+## Docker & Composer Setup
+
+- The `settings.php` file is managed locally and mounted into the container via `docker-compose.yml`:
+  ```yaml
+  volumes:
+    - ./web/sites/default/settings.php:/var/www/html/web/sites/default/settings.php
+  ```
+- After changes to `composer.json` or autoloading, run:
+  ```sh
+  docker-compose exec drupal composer dump-autoload
+  ```
+- To rebuild containers after PHP or extension changes:
+  ```sh
+  docker-compose down
+  docker-compose build
+  docker-compose up -d
+  ```
+
+## Example: Mocking Services in Tests
+
+When unit testing Drupal forms or services, mock all required services:
+
+```php
+$container = new \Drupal\Core\DependencyInjection\ContainerBuilder();
+$container->set('string_translation', \Mockery::mock('Drupal\\Core\\StringTranslation\\TranslationInterface'));
+$container->set('config.typed', \Mockery::mock('Drupal\\Core\\Config\\TypedConfigManagerInterface'));
+$container->set('messenger', \Mockery::mock('Drupal\\Core\\Messenger\\MessengerInterface'));
+$container->set('email.validator', \Mockery::mock('Drupal\\Core\\Validator\\EmailValidatorInterface'));
+\Drupal::setContainer($container);
+```
+
+## Summary
+- Use Pest for all unit tests.
+- Run tests via Docker for consistent results.
+- Achieve high coverage by focusing on business logic and mocking all required services.
+- For form validation, use real `FormState` objects if possible.

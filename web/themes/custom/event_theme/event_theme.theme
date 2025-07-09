@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Theme functions for the Event Theme.
+ */
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function event_theme_preprocess_node(&$variables) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = $variables['node'];
+    // Check if the current user can update this node.
+    $variables['can_update'] = $node->access('update');
+}
+
+function event_theme_preprocess_node__event__full(&$variables) {
+  if (isset($variables['node']) && $variables['node'] instanceof \Drupal\node\NodeInterface) {
+    $variables['event_node_id'] = $variables['node']->id();
+    // Optionally, add access checks here and pass a boolean for can_update.
+    $variables['can_update'] = \Drupal::currentUser()->hasPermission('edit any event content');
+  }
+}
